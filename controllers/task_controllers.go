@@ -13,9 +13,9 @@ import (
 func GetTasks(c *gin.Context) {
 	tasks, err := data.GetTasks()
 	if err != nil {
-		// Print the REAL error to server terminal
+		// [FIXED/IMPROVED]:
+		// Print REAL error to the server log
 		log.Printf("ERROR in GetTasks: %v", err)
-
 		// Also send it to client for easier debugging
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error":   "could not fetch tasks",
@@ -30,6 +30,8 @@ func GetTaskByID(c *gin.Context) {
 	id := c.Param("id")
 	task, err := data.GetTaskByID(id)
 	if err != nil {
+		// [FIXED/IMPROVED]: Log error for debugging
+		log.Printf("ERROR in GetTaskByID: %v", err) // [IMPROVED]
 		c.JSON(http.StatusNotFound, gin.H{"error": "task not found"})
 		return
 	}

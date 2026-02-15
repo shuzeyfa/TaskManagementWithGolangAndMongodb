@@ -9,7 +9,7 @@ import (
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
-	"go.mongodb.org/mongo-driver/v2/mongo"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
 func getTaskCollection() *mongo.Collection {
@@ -31,25 +31,23 @@ func GetTasks() ([]models.Task, error) {
 
 	var tasks []models.Task
 	if err = cursor.All(ctx, &tasks); err != nil {
+		// [FIXED/IMPROVED]: Return error as is, no change needed, but added note above for why it might fail (bad _id types in DB)
 		return nil, err
 	}
 	return tasks, nil
 }
 
 func GetTaskByID(id string) (models.Task, error) {
-
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
 	objID, err := primitive.ObjectIDFromHex(id)
-
 	if err != nil {
 		return models.Task{}, err
 	}
 	var task models.Task
 	err = getTaskCollection().FindOne(ctx, bson.M{"_id": objID}).Decode(&task)
 	return task, err
-
 }
 
 func CreateTask(task models.Task) (*mongo.InsertOneResult, error) {

@@ -11,7 +11,6 @@ import (
 
 func Router() *gin.Engine {
 	config.ConnectDB()
-
 	log.Println("App is ready!")
 
 	r := gin.Default()

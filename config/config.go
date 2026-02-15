@@ -7,8 +7,8 @@ import (
 	"time"
 
 	"github.com/joho/godotenv"
-	"go.mongodb.org/mongo-driver/v2/mongo"
-	"go.mongodb.org/mongo-driver/v2/mongo/options"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 var Client *mongo.Client
@@ -35,16 +35,14 @@ func ConnectDB() {
 		SetConnectTimeout(20 * time.Second).
 		SetServerSelectionTimeout(20 * time.Second)
 
-	// CONNECT (v2 driver)
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+
 	var err error
-	Client, err = mongo.Connect(clientOptions)
+	Client, err = mongo.Connect(ctx, clientOptions)
 	if err != nil {
 		log.Fatalf("Failed to connect: %v", err)
 	}
-
-	// context only for ping
-	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
-	defer cancel()
 
 	err = Client.Ping(ctx, nil)
 	if err != nil {
