@@ -1,0 +1,74 @@
+# Binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+*.app
+
+# Dependency directories
+vendor/
+node_modules/
+
+# Go workspace files
+*.mod
+*.sum
+go.sum
+go.mod
+
+# IDE - Specific
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Environment files
+.env
+.env.local
+.env.*.local
+*.env
+
+# Output of the go coverage tool
+*.out
+*.cov
+coverage.html
+coverage.txt
+
+# Go workspace file
+go.work
+go.work.sum
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Build artifacts
+/taskmanagement
+/taskmanagement.exe
+/main
+/main.exe
+
+# Logs
+*.log
+logs/
+**/logs/
+
+# Temp files
+tmp/
+temp/
+*.tmp
+*.temp
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
